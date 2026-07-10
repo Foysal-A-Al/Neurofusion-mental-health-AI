@@ -119,6 +119,4 @@ The default random seed is `42`. Configuration is stored in `configs/config.yaml
 - Speech and wearable inputs are represented by derived numerical features, not raw signals.
 - Performance should not be extrapolated to real patient populations.
 
-## License
 
-MIT. See [LICENSE](LICENSE).
