@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="260" viewBox="0 0 1280 260" role="img" aria-labelledby="title desc">
+<title id="title">NeuroFusion</title><desc id="desc">Reproducible mental-health ML research. Synthetic data  /  Calibrated baselines  /  API + dashboard. Decorative project illustration.</desc>
+<defs><linearGradient id="bg"><stop stop-color="#101d31"/><stop offset="1" stop-color="#182740"/></linearGradient></defs>
+<rect width="1280" height="260" rx="18" fill="url(#bg)"/>
+<rect x="40" y="43" width="4" height="155" rx="2" fill="#a69cff"/>
+<g font-family="DejaVu Sans, Arial, sans-serif"><text x="66" y="65" fill="#a69cff" font-size="12" letter-spacing="2">RESEARCH &amp; ENGINEERING</text>
+<text x="64" y="121" fill="#f5f8ff" font-size="42" font-weight="700">NeuroFusion</text>
+<text x="66" y="162" fill="#c7d4e6" font-size="21">Reproducible mental-health ML research</text>
+<text x="66" y="216" fill="#8da2be" font-size="14">Synthetic data  /  Calibrated baselines  /  API + dashboard</text></g>
+<path d="M918 140 H953 L975 112 L1006 167 L1034 99 L1061 152 L1095 119 L1120 142 H1230" fill="none" stroke="#a69cff" stroke-width="3" opacity=".8"/><path d="M948 193 C987 152 1012 198 1060 164 S1140 188 1218 151" fill="none" stroke="#66b3ff" stroke-width="2" opacity=".5"/></svg>
