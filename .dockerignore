@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+*.egg-info
+dist
+build
+*.zip
+data/**/*.csv
+artifacts/*.joblib
+artifacts/*.json

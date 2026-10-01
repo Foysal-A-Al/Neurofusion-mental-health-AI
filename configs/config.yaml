@@ -1,0 +1,10 @@
+seed: 42
+data:
+  patients: 800
+  days: 30
+  output: data/synthetic/longitudinal.csv
+training:
+  test_size: 0.20
+  random_state: 42
+artifacts:
+  directory: artifacts

@@ -1,18 +1,45 @@
 name: Docker Image CI
-
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
-
+    branches: [main]
+permissions:
+  contents: read
 jobs:
-
-  build:
-
+  compose-demo:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - uses: actions/checkout@v4
+      - name: Train and start API/dashboard
+        run: docker compose up -d --build
+      - name: Verify health and prediction over HTTP
+        run: |
+          python - <<'PY'
+          import json, time, urllib.request
+          from pathlib import Path
+          for attempt in range(60):
+              try:
+                  health = json.load(urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3))
+                  assert health['models_available']
+                  urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=3)
+                  break
+              except Exception:
+                  if attempt == 59:
+                      raise
+                  time.sleep(2)
+          request = urllib.request.Request('http://127.0.0.1:8000/api/v1/predict',
+              data=Path('examples/prediction_request.json').read_bytes(),
+              headers={'Content-Type': 'application/json'})
+          result = json.load(urllib.request.urlopen(request, timeout=10))
+          assert 0 <= result['seven_day_deterioration_risk'] <= 1
+          assert abs(sum(result['state_probabilities'].values()) - 1) < 1e-6
+          print('API, dashboard, and trained-model prediction passed')
+          PY
+      - name: Container logs
+        if: always()
+        run: docker compose logs --no-color
+      - name: Stop containers
+        if: always()
+        run: docker compose down
