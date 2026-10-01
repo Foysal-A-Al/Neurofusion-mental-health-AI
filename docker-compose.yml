@@ -1,9 +1,20 @@
 services:
+  trainer:
+    build: .
+    command: python scripts/run_demo.py
+    healthcheck:
+      disable: true
+    volumes:
+      - ./artifacts:/app/artifacts
+      - ./data:/app/data
   api:
     build: .
     command: uvicorn api.main:app --host 0.0.0.0 --port 8000
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      trainer:
+        condition: service_completed_successfully
     volumes:
       - ./artifacts:/app/artifacts
       - ./data:/app/data
@@ -11,7 +22,14 @@ services:
     build: .
     command: streamlit run dashboard/app.py --server.address 0.0.0.0
     ports:
-      - "8501:8501"
+      - "127.0.0.1:8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health')"]
+      interval: 10s
+      timeout: 5s
     volumes:
       - ./artifacts:/app/artifacts
       - ./data:/app/data
