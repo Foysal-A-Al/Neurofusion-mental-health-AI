@@ -181,9 +181,9 @@ Requests contain 3–60 observations for one patient, with unique ISO dates and 
 | `mood_score`, `stress_level` | 0–10 |
 | `sleep_hours` | 0–24 |
 | `activity_minutes` | 0–500 |
-| `adherence`, `pause_ratio` | 0–1 |
+| `medication_adherence`, `pause_ratio` | 0–1 |
 | `speech_rate` | 40–300 |
-| `sentiment` | −1 to 1 |
+| `sentiment_score` | −1 to 1 |
 
 See [the example request](examples/prediction_request.json) for the complete JSON structure and [api/schemas.py](api/schemas.py) for executable validation rules.
 
